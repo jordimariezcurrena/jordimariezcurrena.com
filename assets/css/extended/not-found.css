@@ -1,0 +1,16 @@
+.not-found-content {
+  text-align: center;
+}
+
+.not-found-message {
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin-top: 1rem;
+}
+
+.not-found-link {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 0.5rem;
+}

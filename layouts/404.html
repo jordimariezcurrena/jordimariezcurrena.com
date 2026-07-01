@@ -1,17 +1,19 @@
 {{ define "main" }}
 <div class="not-found">
-  <h1>404</h1>
-  <p>
-    {{ if eq .Site.Language.Lang "es" }}Esta página no existe.
-    {{ else if eq .Site.Language.Lang "ca" }}Aquesta pàgina no existeix.
-    {{ else }}This page does not exist.
-    {{ end }}
-  </p>
-  <a href="{{ .Site.LanguagePrefix }}/">
-    {{ if eq .Site.Language.Lang "es" }}Volver al inicio
-    {{ else if eq .Site.Language.Lang "ca" }}Torna a l'inici
-    {{ else }}Back to home
-    {{ end }}
-  </a>
+  <div class="not-found-content">
+    <div class="not-found-code">404</div>
+    <p class="not-found-message">
+      {{ if eq .Site.Language.Lang "es" }}Esta página no existe.
+      {{ else if eq .Site.Language.Lang "ca" }}Aquesta pàgina no existeix.
+      {{ else }}This page does not exist.
+      {{ end }}
+    </p>
+    <a class="not-found-link" href="{{ .Site.LanguagePrefix }}/">
+      {{ if eq .Site.Language.Lang "es" }}Volver al inicio
+      {{ else if eq .Site.Language.Lang "ca" }}Torna a l'inici
+      {{ else }}Back to home
+      {{ end }}
+    </a>
+  </div>
 </div>
 {{ end }}
