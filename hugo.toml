@@ -44,7 +44,7 @@ buildFuture = false
 
   [[params.socialIcons]]
     name = "rss"
-    url = "index.xml"
+    url = "https://jordimariezcurrena.com/index.xml"
 
 [languages]
   [languages.es]
