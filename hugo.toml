@@ -1,7 +1,135 @@
-baseURL = 'https://example.org/'
-locale = 'en-us'
-title = 'My New Hugo Project'
+baseURL = "https://jordimariezcurrena.com/"
+title = "Jordi Mariezcurrena"
+defaultContentLanguage = "es"
+defaultContentLanguageInSubdir = false
+enableRobotsTXT = true
+enableEmoji = true
+buildDrafts = false
+buildFuture = false
+
+[minify]
+  disableXML = true
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
 
 [module]
   [[module.imports]]
     path = "github.com/adityatelange/hugo-PaperMod"
+
+[params]
+  env = "production"
+  ShowShareButtons = true
+  ShowReadingTime = true
+  ShowCodeCopyButtons = true
+  ShowToc = true
+  ShowBreadCrumbs = true
+  ShowPostNavLinks = true
+  ShowRssButtonInSectionTermList = true
+  ShowFullTextinRSS = true
+  disableSpecial1stPost = false
+  disableScrollToTop = false
+  hidemeta = false
+  hideSummary = false
+  ShowWordCount = false
+  comments = false
+
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/jordimariezcurrena"
+
+  [[params.socialIcons]]
+    name = "linkedin"
+    url = "https://www.linkedin.com/in/jordimariezcurrena"
+
+  [[params.socialIcons]]
+    name = "rss"
+    url = "index.xml"
+
+[languages]
+  [languages.es]
+    languageName = "Español"
+    languageCode = "es-ES"
+    weight = 1
+    [languages.es.params]
+      [languages.es.params.homeInfoParams]
+        Title = "Hola, soy Jordi 👋"
+        Content = "Escribo sobre tecnología, producto y mi trayectoria profesional en la UdL."
+    [[languages.es.menu.main]]
+      name = "Inicio"
+      url = "/"
+      weight = 1
+    [[languages.es.menu.main]]
+      name = "Posts"
+      url = "/posts/"
+      weight = 2
+    [[languages.es.menu.main]]
+      name = "Proyectos"
+      url = "/proyectos/"
+      weight = 3
+    [[languages.es.menu.main]]
+      name = "Sobre mí"
+      url = "/sobre-mi/"
+      weight = 4
+    [[languages.es.menu.main]]
+      name = "Contacto"
+      url = "/contacto/"
+      weight = 5
+
+  [languages.ca]
+    languageName = "Català"
+    languageCode = "ca-ES"
+    weight = 2
+    [languages.ca.params]
+      [languages.ca.params.homeInfoParams]
+        Title = "Hola, sóc en Jordi 👋"
+        Content = "Escric sobre tecnologia, producte i la meva trajectòria professional a la UdL."
+    [[languages.ca.menu.main]]
+      name = "Inici"
+      url = "/ca/"
+      weight = 1
+    [[languages.ca.menu.main]]
+      name = "Publicacions"
+      url = "/ca/posts/"
+      weight = 2
+    [[languages.ca.menu.main]]
+      name = "Projectes"
+      url = "/ca/projectes/"
+      weight = 3
+    [[languages.ca.menu.main]]
+      name = "Sobre mi"
+      url = "/ca/sobre-mi/"
+      weight = 4
+    [[languages.ca.menu.main]]
+      name = "Contacte"
+      url = "/ca/contacte/"
+      weight = 5
+
+  [languages.en]
+    languageName = "English"
+    languageCode = "en-US"
+    weight = 3
+    [languages.en.params]
+      [languages.en.params.homeInfoParams]
+        Title = "Hi, I'm Jordi 👋"
+        Content = "I write about technology, product, and my career at UdL."
+    [[languages.en.menu.main]]
+      name = "Home"
+      url = "/en/"
+      weight = 1
+    [[languages.en.menu.main]]
+      name = "Posts"
+      url = "/en/posts/"
+      weight = 2
+    [[languages.en.menu.main]]
+      name = "Projects"
+      url = "/en/projects/"
+      weight = 3
+    [[languages.en.menu.main]]
+      name = "About"
+      url = "/en/about/"
+      weight = 4
+    [[languages.en.menu.main]]
+      name = "Contact"
+      url = "/en/contact/"
+      weight = 5
