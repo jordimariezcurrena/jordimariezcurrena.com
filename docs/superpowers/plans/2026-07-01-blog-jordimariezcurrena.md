@@ -830,6 +830,45 @@ git add content/projects layouts/projects assets/css/extended/projects.css
 git commit -m "Add Projects section with grid layout"
 ```
 
+> **Post-implementation note (superseding the steps above):** Hugo's actual
+> behavior on this project required 3 changes beyond what's written above,
+> found and verified while implementing this task (commits `0a90e8e`,
+> `ef68d1b`):
+> 1. `url:` is a reserved Hugo front-matter field (page/permalink override)
+>    and rejects external absolute URLs. The sample project's front matter
+>    uses `link:` instead of `url:`, and `layouts/projects/list.html` reads
+>    `.Params.link` instead of `.Params.url`.
+> 2. A section's `slug:` front matter does not change the section's own
+>    list-page URL — only `url:` does. `content/projects/_index.es.md` and
+>    `_index.ca.md` each have `url: "/proyectos/"` / `url: "/ca/projectes/"`
+>    added (in addition to `slug:`).
+> 3. Leaf pages under a section don't inherit that `url:` override, so
+>    `hugo.toml` gained per-language permalinks config so future projects
+>    resolve at translated URLs automatically from `slug:` alone, with no
+>    per-page override needed:
+>    ```toml
+>    [languages.es.permalinks]
+>      projects = "/proyectos/:slug/"
+>    [languages.ca.permalinks]
+>      projects = "/projectes/:slug/"
+>    [languages.en.permalinks]
+>      projects = "/projects/:slug/"
+>    ```
+>
+> **Known limitation, accepted and documented in code** (see the comment in
+> `layouts/partials/templates/schema_json.html` above the `BreadcrumbList`
+> logic): the JSON-LD `BreadcrumbList` on ES/CA project leaf pages is missing
+> its section-level parent entry, because that shared partial resolves
+> ancestors by content-tree path, not rendered permalink. Fixing it properly
+> means changing a partial shared by every page on the site — out of scope
+> here. Visible breadcrumb navigation and hreflang are unaffected; this only
+> affects one structured-data block.
+>
+> **Adding a future project:** only needs `title`, `slug`, `description`,
+> `translationKey`, and `link` (if external) — no `hugo.toml` change and no
+> `url:` override required, since the permalinks config above already
+> handles translated leaf URLs for the whole section.
+
 ---
 
 ### Task 9: SEO verification pass

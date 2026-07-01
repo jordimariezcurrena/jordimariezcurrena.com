@@ -27,6 +27,20 @@
 {{- $bc_list := (split $lang_url "/")}}
 
 {{- $scratch := newScratch }}
+{{/*
+  Known limitation: this resolves ancestor segments via site.GetPage against
+  the content-tree path, not the rendered permalink. If a section uses a
+  translated URL (front-matter `url:` override, or `[languages.x.permalinks]`
+  config) that diverges from its content directory name, GetPage won't find
+  it and that ancestor is silently dropped from the breadcrumb.
+  Affects (as of the Projects section, Task 8): /proyectos/mi-primer-proyecto/
+  and /ca/projectes/el-meu-primer-projecte/ — their BreadcrumbList JSON-LD is
+  missing the section-level entry (starts at position 2). EN is unaffected
+  since its translated URL happens to equal the content directory name
+  ("projects"). Fixing this properly means resolving ancestors via .Parent/
+  .Ancestors directly instead of re-deriving and re-resolving a path string —
+  out of scope where this was found since it's shared by every page on the site.
+*/}}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
