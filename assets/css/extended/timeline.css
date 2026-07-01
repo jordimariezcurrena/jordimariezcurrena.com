@@ -14,6 +14,21 @@
   gap: 0.75rem;
   flex-wrap: wrap;
   align-items: baseline;
+  list-style: none;
+}
+
+.timeline-entry summary::-webkit-details-marker {
+  display: none;
+}
+
+.timeline-entry summary::before {
+  content: "\25B8";
+  color: var(--secondary);
+  transition: transform 0.1s ease;
+}
+
+.timeline-entry[open] summary::before {
+  transform: rotate(90deg);
 }
 
 .timeline-entry__badge {

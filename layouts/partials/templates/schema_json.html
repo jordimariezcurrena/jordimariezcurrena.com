@@ -28,19 +28,24 @@
 
 {{- $scratch := newScratch }}
 {{/*
-  Known limitation: this resolves ancestor segments via site.GetPage against
-  the content-tree path, not the rendered permalink. If a section uses a
-  translated URL (front-matter `url:` override, or `[languages.x.permalinks]`
-  config) that diverges from its content directory name, GetPage won't find
-  it and that ancestor is silently dropped from the breadcrumb.
-  Affects (as of the Projects section, Task 8): /proyectos/mi-primer-proyecto/
-  and /ca/projectes/el-meu-primer-projecte/ — their BreadcrumbList JSON-LD is
-  missing the section-level entry (starts at position 2). EN is unaffected
+  Ancestor segments are resolved via site.GetPage against the content-tree
+  path, not the rendered permalink. If a section uses a translated URL
+  (front-matter `url:` override, or `[languages.x.permalinks]` config) that
+  diverges from its content directory name, GetPage won't find it and that
+  ancestor is skipped. Affects (as of the Projects section, Task 8):
+  /proyectos/mi-primer-proyecto/ and /ca/projectes/el-meu-primer-projecte/ —
+  their BreadcrumbList is missing the section-level entry. EN is unaffected
   since its translated URL happens to equal the content directory name
-  ("projects"). Fixing this properly means resolving ancestors via .Parent/
-  .Ancestors directly instead of re-deriving and re-resolving a path string —
-  out of scope where this was found since it's shared by every page on the site.
+  ("projects"). The comma/position logic below tracks how many items were
+  actually emitted (via $scratch "position") rather than assuming the full
+  $bc_list length, so a skipped ancestor no longer produces a stray leading
+  comma (invalid JSON) or a wrong position number for the self entry.
+  Fixing the underlying skip properly means resolving ancestors via
+  .Parent/.Ancestors directly instead of re-deriving and re-resolving a path
+  string — out of scope where this was found since it's shared by every page
+  on the site.
 */}}
+{{- $scratch.Set "position" 0 }}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -52,10 +57,11 @@
     {{- $bc_pg := site.GetPage ($scratch.Get "path") -}}
 
     {{- if (and ($bc_pg) (gt (len . ) 0))}}
-    {{- if (and $index)}}, {{end }}
+    {{- if (gt ($scratch.Get "position") 0)}}, {{end }}
+    {{- $noop := $scratch.Add "position" 1 }}
     {
       "@type": "ListItem",
-      "position": {{ add 1 $index  }},
+      "position": {{ $scratch.Get "position" }},
       "name": {{ $bc_pg.Name }},
       "item": {{ $bc_pg.Permalink | safeHTML }}
     }
@@ -63,10 +69,11 @@
 
   {{- end }}
   {{- /*  self-page addition  */ -}}
-  {{- if (ge (len $bc_list) 2) }}, {{end }}
+  {{- if (gt ($scratch.Get "position") 0) }}, {{end }}
+  {{- $noop2 := $scratch.Add "position" 1 }}
     {
       "@type": "ListItem",
-      "position": {{len $bc_list}},
+      "position": {{ $scratch.Get "position" }},
       "name": {{ .Name }},
       "item": {{ .Permalink | safeHTML }}
     }
