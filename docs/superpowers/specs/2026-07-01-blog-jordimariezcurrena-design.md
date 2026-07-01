@@ -94,7 +94,7 @@ Fuera del alcance del código (acciones post-despliegue): alta en Google Search 
 
 ## Despliegue
 
-1. Repo GitHub público, rama `main`
+1. Repo GitHub público, rama `main`, en `https://github.com/jordimariezcu/jordimariezcurrena.com`
 2. Cloudflare Pages conectado al repo: preset "Hugo", build command `hugo mod get && hugo --minify`, output dir `public`, variable de entorno `HUGO_VERSION` fijada a la última extended
 3. Dominio comprado en Cloudflare Registrar, añadido como dominio custom del proyecto Pages (SSL automático)
 4. Push a `main` → deploy a producción. Pull Request → preview URL única
