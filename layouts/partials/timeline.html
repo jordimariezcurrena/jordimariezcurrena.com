@@ -1,4 +1,4 @@
-{{ $entries := index .Site.Data.timeline .Site.Language.Lang }}
+{{ $entries := index hugo.Data.timeline .Site.Language.Lang }}
 <div class="timeline">
   {{ range $entries }}
   <details class="timeline-entry timeline-entry--{{ .type }}">
