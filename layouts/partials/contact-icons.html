@@ -1,0 +1,12 @@
+{{- $icons := slice
+  (dict "name" "linkedin" "url" "https://www.linkedin.com/in/jordimariezcurrena")
+  (dict "name" "x" "url" "https://x.com/jomariezcurrena")
+  (dict "name" "github" "url" "https://github.com/jordimariezcurrena")
+-}}
+<div class="social-icons">
+  {{- range $icons }}
+  <a href="{{ .url | safeURL }}" target="_blank" rel="noopener noreferrer me" title="{{ .name | title }}">
+    {{ partial "svg.html" . }}
+  </a>
+  {{- end }}
+</div>
