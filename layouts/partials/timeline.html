@@ -1,0 +1,13 @@
+{{ $entries := index .Site.Data.timeline .Site.Language.Lang }}
+<div class="timeline">
+  {{ range $entries }}
+  <details class="timeline-entry timeline-entry--{{ .type }}">
+    <summary>
+      <span class="timeline-entry__badge">{{ .role }}</span>
+      <span class="timeline-entry__company">{{ .company }}</span>
+      <span class="timeline-entry__period">{{ .period }}</span>
+    </summary>
+    <p class="timeline-entry__description">{{ .description }}</p>
+  </details>
+  {{ end }}
+</div>
