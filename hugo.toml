@@ -51,6 +51,8 @@ buildFuture = false
     languageName = "Español"
     languageCode = "es-ES"
     weight = 1
+    [languages.es.permalinks]
+      projects = "/proyectos/:slug/"
     [languages.es.params]
       [languages.es.params.homeInfoParams]
         Title = "Hola, soy Jordi 👋"
@@ -80,6 +82,8 @@ buildFuture = false
     languageName = "Català"
     languageCode = "ca-ES"
     weight = 2
+    [languages.ca.permalinks]
+      projects = "/projectes/:slug/"
     [languages.ca.params]
       [languages.ca.params.homeInfoParams]
         Title = "Hola, sóc en Jordi 👋"
@@ -109,6 +113,8 @@ buildFuture = false
     languageName = "English"
     languageCode = "en-US"
     weight = 3
+    [languages.en.permalinks]
+      projects = "/projects/:slug/"
     [languages.en.params]
       [languages.en.params.homeInfoParams]
         Title = "Hi, I'm Jordi 👋"
